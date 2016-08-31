@@ -1,0 +1,95 @@
+<table>
+<tr>
+<!-- ------------------ Yelp Section ------------------ -->
+<td id="yelpCol" width="50%">
+
+	<table style="border: 1px solid black;">
+	<tr>
+		<td>
+			<img src="<%= @yelpResponse.business.image_url %>" class="img-circle">
+		</td>
+		<td> 
+			<h2><a href="<%= @yelpResponse.business.url %>"><%= @yelpResponse.business.name %></a></h2><br>
+			<img src="<%= @yelpResponse.business.rating_img_url%>">
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan="2">
+			<% @yelpResponse.business.categories.each do |category| %>
+				<%= category[0].to_s + " " %>
+			<% end %>
+		</td>
+	</tr>
+	
+	<tr>
+	<td colspan="2">
+		<p><%=@yelpResponse.business.snippet_text%></p>
+		<p><br><br><br></p>
+	</td>
+	</tr>
+	
+	<% if !@yelpResponse.business.deals.nil? %>
+	<tr>
+	<td colspan="2">
+		<h2>Deals</h2><br>
+		<% @yelpResponse.business.deals.each do |deal| %>
+				<a href="<%= deal.url %>"><%= deal.title %></a> <br>
+		<% end %>
+	</td>
+	</tr>
+	<% end %>
+	
+	<% if !@yelpResponse.business.reviews.nil? %>
+	<% review = @yelpResponse.business.reviews[0] %>
+	<tr>
+	<td colspan="2"><h2>Hear what <%= review.user["name"] %> had to say:</h2><br></td>
+	</tr>
+
+	<tr>
+	<td>
+		<img src="<%= review.user['image_url'] %>" class="img-circle">
+	</td>
+	<td>
+		
+		<%= review.excerpt %>
+	</td>
+	</tr>
+	
+	<% end %>
+	</table>
+
+</td>
+<!-- ------------------ Twitter Section ------------------ -->
+<td id="twitterCol">
+	<table>
+		<tr>
+			<td colspan="2">
+				<h2>Hot Topics</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<%= @hotTopics.join(" - ") %>
+			</td>
+		</tr>
+		<tr><td colspan="2"><h2>Recent Tweets</h2></td></tr>
+		<% if @recentTweets.length > 1 then %>
+		<% @recentTweets.each do |tweet| %>
+		<tr> 
+			<td><img src="<%= tweet.user['profile_image_url'] %>" class="img-circle"></td>
+			<td>
+				<table>
+					<tr><td><%= tweet.user["name"] %></td></tr>
+					<tr><td><%= tweet.text %></td></tr>
+				</table>
+			</td>
+		</tr>
+		<% end %>
+		<% else %>
+			<tr><td colspan="2"><p>No recent tweets!</p></td></tr>
+		<% end %>
+	</table>
+</td>
+</tr>
+</table>
