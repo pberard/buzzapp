@@ -21,8 +21,6 @@ def getRestaurantTuples()
 end
 
 def getMostCommonHashtags(twitterResponse)
-	puts "Start of getMostCommonHashtags"
-	
 	hotTags = Array.new
 	hashTags = Hash.new(0) #Default the value to 0 so that we can count the occurence of each hashtag easily
 
@@ -43,6 +41,6 @@ def getMostCommonHashtags(twitterResponse)
 		#womp womp no hashtags
 		hotTags.push("No hashtags! How lame!")
 	end
-	puts "End of getMostCommonHashtags"
+	
 	return hotTags
 end
